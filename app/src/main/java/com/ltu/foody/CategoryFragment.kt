@@ -7,49 +7,49 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.ltu.foody.databinding.FragmentFirstBinding
+import com.ltu.foody.databinding.FragmentCategoryBinding
 
 
-class FirstFragment : Fragment() {
+class CategoryFragment : Fragment() {
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FragmentCategoryBinding.inflate(inflater, container, false)
         val application = requireNotNull(this.activity).application
 
         binding.mainCourse.setOnClickListener {
             findNavController().navigate(
-                FirstFragmentDirections.actionFirstFragmentToSecondFragment("main course")
+                CategoryFragmentDirections.actionFirstFragmentToSecondFragment("main course")
             )
         }
         binding.salad.setOnClickListener {
             findNavController().navigate(
-                FirstFragmentDirections.actionFirstFragmentToSecondFragment("salad")
+                CategoryFragmentDirections.actionFirstFragmentToSecondFragment("salad")
             )
         }
         binding.bread.setOnClickListener {
             findNavController().navigate(
-                FirstFragmentDirections.actionFirstFragmentToSecondFragment("bread")
+                CategoryFragmentDirections.actionFirstFragmentToSecondFragment("bread")
             )
         }
         binding.dessert.setOnClickListener {
             findNavController().navigate(
-                FirstFragmentDirections.actionFirstFragmentToSecondFragment("dessert")
+                CategoryFragmentDirections.actionFirstFragmentToSecondFragment("dessert")
             )
         }
         binding.sauce.setOnClickListener {
             findNavController().navigate(
-                FirstFragmentDirections.actionFirstFragmentToSecondFragment("soup")
+                CategoryFragmentDirections.actionFirstFragmentToSecondFragment("soup")
             )
         }
         binding.drink.setOnClickListener {
             findNavController().navigate(
-                FirstFragmentDirections.actionFirstFragmentToSecondFragment("drink")
+                CategoryFragmentDirections.actionFirstFragmentToSecondFragment("drink")
             )
         }
 

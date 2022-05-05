@@ -9,8 +9,8 @@ import com.bumptech.glide.Glide
 
 
 @BindingAdapter("posterImageUrl")
-fun posterImage(imgView: ImageView,imgUrl:String){
-    imgUrl.let{ posterPath ->
+fun posterImage(imgView: ImageView,imgUrl:String?){
+    imgUrl?.let{ posterPath ->
         Glide
             .with(imgView)
             .load(imgUrl)

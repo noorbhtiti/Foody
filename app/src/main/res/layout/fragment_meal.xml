@@ -17,7 +17,7 @@
         android:id="@+id/meals_list_cv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SecondFragment">
+        tools:context=".MealFragment">
 
 
 
@@ -33,6 +33,7 @@
 <!--            android:contentDescription="@string/meals_are_being_loaded" />-->
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

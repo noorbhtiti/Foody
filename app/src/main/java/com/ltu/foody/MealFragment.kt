@@ -1,27 +1,30 @@
 package com.ltu.foody
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ltu.foody.adapter.MealListAdapter
 import com.ltu.foody.adapter.MealListClickListener
-import com.ltu.foody.databinding.FragmentSecondBinding
+import com.ltu.foody.databinding.FragmentMealBinding
 import com.ltu.foody.viewmodel.MealListViewModel
 import com.ltu.foody.viewmodel.MealListViewModelFactory
 import androidx.navigation.fragment.navArgs
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 
 
-class SecondFragment : Fragment() {
+class MealFragment : Fragment() {
 
-    private var _binding: FragmentSecondBinding? = null
+    private var _binding: FragmentMealBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: MealListViewModel
     private lateinit var viewModelFactory: MealListViewModelFactory
-    private val args: SecondFragmentArgs by navArgs()
+    private val args: MealFragmentArgs by navArgs()
 
 
 
@@ -31,7 +34,7 @@ class SecondFragment : Fragment() {
     ): View? {
 
 
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentMealBinding.inflate(inflater, container, false)
         val application = requireNotNull(this.activity).application
         viewModelFactory = MealListViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory)[MealListViewModel::class.java]
@@ -40,19 +43,35 @@ class SecondFragment : Fragment() {
         })
         binding.mealsListRv.adapter = mealListAdapter
         viewModel.getRandomMeals(args.category)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.title = (args.category).uppercase()
+
         viewModel.recipes.observe(viewLifecycleOwner){  mealList ->
-            mealList?.let {
-                mealListAdapter.submitList(mealList)
+                mealList?.let {
+                    mealListAdapter.submitList(mealList)
+                }
             }
-        }
-        viewModel.navigateToRecipesDetail.observe(viewLifecycleOwner){ meal->
-            meal?.let {
-                this.findNavController().navigate(
-                    SecondFragmentDirections.actionSecondFragmentToThirdFragment(meal)
-                )
-                viewModel.onMealDetailNavigated()
+            viewModel.navigateToRecipesDetail.observe(viewLifecycleOwner){ meal->
+                meal?.let {
+                    this.findNavController().navigate(
+                        MealFragmentDirections.actionSecondFragmentToThirdFragment(meal)
+                    )
+                    viewModel.onMealDetailNavigated()
+                }
             }
-        }
+
+        binding.swipeRefreshLayout.setOnRefreshListener(OnRefreshListener {
+            // This method gets called when user pull for refresh,
+            // You can make your API call here,
+            viewModel.getRandomMeals(args.category)
+
+            val handler = Handler()
+            handler.postDelayed(Runnable {
+                if (binding.swipeRefreshLayout.isRefreshing) {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                }
+            }, 1000)
+        })
+
         return binding.root
     }
 
@@ -64,6 +83,6 @@ class SecondFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }
+
+
