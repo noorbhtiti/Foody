@@ -4,14 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ltu.foody.databinding.FragmentFirstBinding
-import com.ltu.foody.viewmodel.MealListViewModel
-import com.ltu.foody.viewmodel.MealListViewModelFactory
 
 
 class FirstFragment : Fragment() {
@@ -28,9 +24,35 @@ class FirstFragment : Fragment() {
 
         binding.mainCourse.setOnClickListener {
             findNavController().navigate(
-                FirstFragmentDirections.actionFirstFragmentToSecondFragment()
+                FirstFragmentDirections.actionFirstFragmentToSecondFragment("main course")
             )
         }
+        binding.salad.setOnClickListener {
+            findNavController().navigate(
+                FirstFragmentDirections.actionFirstFragmentToSecondFragment("salad")
+            )
+        }
+        binding.bread.setOnClickListener {
+            findNavController().navigate(
+                FirstFragmentDirections.actionFirstFragmentToSecondFragment("bread")
+            )
+        }
+        binding.dessert.setOnClickListener {
+            findNavController().navigate(
+                FirstFragmentDirections.actionFirstFragmentToSecondFragment("dessert")
+            )
+        }
+        binding.sauce.setOnClickListener {
+            findNavController().navigate(
+                FirstFragmentDirections.actionFirstFragmentToSecondFragment("soup")
+            )
+        }
+        binding.drink.setOnClickListener {
+            findNavController().navigate(
+                FirstFragmentDirections.actionFirstFragmentToSecondFragment("drink")
+            )
+        }
+
         return binding.root
     }
 

@@ -12,22 +12,16 @@ import com.ltu.foody.adapter.MealListClickListener
 import com.ltu.foody.databinding.FragmentSecondBinding
 import com.ltu.foody.viewmodel.MealListViewModel
 import com.ltu.foody.viewmodel.MealListViewModelFactory
-import kotlin.reflect.jvm.internal.impl.renderer.KeywordStringsGenerated
+import androidx.navigation.fragment.navArgs
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
+
 class SecondFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var viewModel: MealListViewModel
     private lateinit var viewModelFactory: MealListViewModelFactory
-
-
+    private val args: SecondFragmentArgs by navArgs()
 
 
 
@@ -45,7 +39,7 @@ class SecondFragment : Fragment() {
             viewModel.onMealListItemClicked(meal)
         })
         binding.mealsListRv.adapter = mealListAdapter
-        viewModel.getRandomMeals(viewModel.cat)
+        viewModel.getRandomMeals(args.category)
         viewModel.recipes.observe(viewLifecycleOwner){  mealList ->
             mealList?.let {
                 mealListAdapter.submitList(mealList)
