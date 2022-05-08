@@ -21,16 +21,16 @@
 
 
 
-<!--        <ImageView-->
-<!--            android:id="@+id/status_image"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/meals_list_rv"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/meals_list_rv"-->
-<!--            tools:srcCompat="@tools:sample/avatars"-->
-<!--            android:contentDescription="@string/meals_are_being_loaded" />-->
+        <ImageView
+            android:id="@+id/status_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/meals_list_cv"
+            app:layout_constraintTop_toTopOf="@+id/meals_list_cv"
+            tools:srcCompat="@tools:sample/avatars"
+            android:contentDescription="@string/meals_are_being_loaded" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"

@@ -29,9 +29,9 @@
     </fragment>
     <fragment
         android:id="@+id/thirdFragment"
-        android:name="com.ltu.foody.ThirdFragment"
+        android:name="com.ltu.foody.DetailsFragment"
         android:label="fragment_third"
-        tools:layout="@layout/fragment_third" >
+        tools:layout="@layout/fragment_details" >
         <argument
             android:name="recipe"
             app:argType="com.ltu.foody.model.Recipes" />

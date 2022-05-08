@@ -52,19 +52,21 @@ private val foodListRetrofit = Retrofit.Builder()
 //// https://api.spoonacular.com/recipes/random?apiKey=11f559488f3748dc8655d5fa2eec3b62&number=20&tags=drink TODO
 
 interface SpoonacularApiService{
-//    @GET("random?apiKey=${Constants.API_KEY}&number=20&tags={tag}")
-//    suspend fun getRandomMeals(
-//        @Path("tag")
-//        tag: String
-//    ): RandomMealResponse
 
-    @GET("random?apiKey=${Constants.API_KEY}&number=5&") //TODO set the number to 20
+
+    @GET("random?apiKey=${Constants.API_KEY}&number=1&") //TODO set the number to 20
     suspend fun getRandomMeals(
         @Query("tags")
         tag : String
     ): RandomMealResponse
 
+//    https://api.spoonacular.com/recipes/661557/information?apiKey=185fb6e631d04ec9a95d63d833a22ce6 TODO REMOVE
 
+    @GET("{id}/information?apiKey=${Constants.API_KEY}")
+    suspend fun getMealDetails(
+        @Path("id")
+        id : String
+    ): MealDetailsResponse
 //
 //    @GET("{id}/information?apiKey=${Constants.API_KEY}&includeNutrition=false")
 //    suspend fun getMovieVideos(

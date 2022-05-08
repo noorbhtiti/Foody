@@ -16,6 +16,7 @@ import com.ltu.foody.viewmodel.MealListViewModel
 import com.ltu.foody.viewmodel.MealListViewModelFactory
 import androidx.navigation.fragment.navArgs
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import com.ltu.foody.network.DataFetchStatus
 
 
 class MealFragment : Fragment() {
@@ -71,6 +72,24 @@ class MealFragment : Fragment() {
                 }
             }, 1000)
         })
+
+        viewModel.dataFetchStatus.observe(viewLifecycleOwner){status ->
+            status?.let {
+                when(status){
+                    DataFetchStatus.LOADING -> {
+                        binding.statusImage.visibility = View.VISIBLE
+                        binding.statusImage.setImageResource(R.drawable.loading_animation)
+                    }
+                    DataFetchStatus.ERROR -> {
+                        binding.statusImage.visibility = View.VISIBLE
+                        binding.statusImage.setImageResource(R.drawable.ic_connection_error)
+                    }
+                    DataFetchStatus.DONE -> {
+                        binding.statusImage.visibility = View.GONE
+                    }
+                }
+            }
+        }
 
         return binding.root
     }
