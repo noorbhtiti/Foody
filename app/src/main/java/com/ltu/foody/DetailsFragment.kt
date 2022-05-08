@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.ltu.foody.databinding.FragmentDetailsBinding
+import com.ltu.foody.model.InstructionsSteps
 import com.ltu.foody.model.Recipes
 import com.ltu.foody.network.DataFetchStatus
 import com.ltu.foody.viewmodel.MealDetailViewModel
@@ -67,8 +68,11 @@ class DetailsFragment : Fragment() {
             ingredientsList?.forEach { ingredients ->
                 ingredients.original?.let { lastIngredientsList.add(it) }
             }
-            binding.Ingredients.text = "Ingredients: \n" + lastIngredientsList.joinToString("\n ")
+            binding.Ingredients.text = lastIngredientsList.joinToString(" \n ")
         }
+
+
+
 
         viewModel.dataFetchStatus.observe(viewLifecycleOwner){status ->
             status?.let {

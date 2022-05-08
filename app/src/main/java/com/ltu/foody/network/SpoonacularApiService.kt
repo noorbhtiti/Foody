@@ -67,12 +67,7 @@ interface SpoonacularApiService{
         @Path("id")
         id : String
     ): MealDetailsResponse
-//
-//    @GET("{id}/information?apiKey=${Constants.API_KEY}&includeNutrition=false")
-//    suspend fun getMovieVideos(
-//        @Path("id")
-//        mealID: String
-//    ): MovieVideosResponse
+
 }
 
 object SpoonacularApi{
