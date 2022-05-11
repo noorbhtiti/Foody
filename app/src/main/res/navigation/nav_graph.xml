@@ -36,7 +36,19 @@
             android:name="recipe"
             app:argType="com.ltu.foody.model.Recipes" />
         <action
-            android:id="@+id/action_thirdFragment_to_FirstFragment"
+            android:id="@+id/action_thirdFragment_to_video_view"
+            app:destination="@id/video_view" />
+    </fragment>
+    <fragment
+        android:id="@+id/video_view"
+        android:name="com.ltu.foody.video_view"
+        android:label="fragment_video_view"
+        tools:layout="@layout/fragment_video_view" >
+        <action
+            android:id="@+id/action_video_view_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <argument
+            android:name="recipes"
+            app:argType="com.ltu.foody.model.Recipes" />
     </fragment>
 </navigation>

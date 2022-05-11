@@ -6,7 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
+import com.ltu.foody.adapter.IngredientsListAdapter
+import com.ltu.foody.adapter.InstructionsListAdapter
 import com.ltu.foody.databinding.FragmentDetailsBinding
 import com.ltu.foody.model.InstructionsSteps
 import com.ltu.foody.model.Recipes
@@ -20,11 +24,7 @@ class DetailsFragment : Fragment() {
     private lateinit var viewModel: MealDetailViewModel
     private lateinit var viewModelFactory: MealDetailViewModelFactory
     private lateinit var recipes: Recipes
-
-    private var vegan:Boolean = false
-    private var glutenfree:Boolean = false
-    private var lactosefree:Boolean = false
-
+    private val args: DetailsFragmentArgs by navArgs()
 
 
     @SuppressLint("SetTextI18n")
@@ -32,6 +32,9 @@ class DetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        (activity as AppCompatActivity?)!!.supportActionBar!!.title = (args.recipe.title)
+
         _binding = FragmentDetailsBinding.inflate(inflater,container,false)
         val application = requireNotNull(this.activity).application
         recipes = DetailsFragmentArgs.fromBundle(requireArguments()).recipe
@@ -57,42 +60,49 @@ class DetailsFragment : Fragment() {
                 }else{
                     binding.glutenfree.visibility = View.GONE
                 }
-
-                vegan = it.vegan
-                glutenfree = it.glutenFree
-                lactosefree = it.dairyFree
             }
         }
+
+        val ingredientsListAdapter = IngredientsListAdapter()
+        binding.IngredientsListRv.adapter = ingredientsListAdapter
+
         viewModel.ingredients.observe(viewLifecycleOwner){ ingredientsList ->
-            val lastIngredientsList = mutableListOf<String>()
-            ingredientsList?.forEach { ingredients ->
-                ingredients.original?.let { lastIngredientsList.add(it) }
-            }
-            binding.Ingredients.text = lastIngredientsList.joinToString(" \n ")
-        }
-
-
-
-
-        viewModel.dataFetchStatus.observe(viewLifecycleOwner){status ->
-            status?.let {
-                when(status){
-                    DataFetchStatus.LOADING -> {
-                        binding.statusImage.visibility = View.VISIBLE
-                        binding.statusImage.setImageResource(R.drawable.loading_animation)
-                    }
-                    DataFetchStatus.ERROR -> {
-                        binding.statusImage.visibility = View.VISIBLE
-                        binding.statusImage.setImageResource(R.drawable.ic_connection_error)
-                    }
-                    DataFetchStatus.DONE -> {
-                        binding.statusImage.visibility = View.GONE
-                    }
-                }
+            ingredientsList?.let {
+                ingredientsListAdapter.submitList(ingredientsList)
             }
         }
+
+        val instructionsListAdapter = InstructionsListAdapter()
+        binding.InstructionsListRv.adapter = instructionsListAdapter
+
+        viewModel.instructionsSteps.observe(viewLifecycleOwner){ listInstructionSteps ->
+            listInstructionSteps?.let {
+                instructionsListAdapter.submitList(listInstructionSteps)
+            }
+        }
+
+
+//        viewModel.dataFetchStatus.observe(viewLifecycleOwner){status ->
+//            status?.let {
+//                when(status){
+//                    DataFetchStatus.LOADING -> {
+//                        binding.statusImage.visibility = View.VISIBLE
+//                        binding.statusImage.setImageResource(R.drawable.loading_animation)
+//                    }
+//                    DataFetchStatus.ERROR -> {
+//                        binding.statusImage.visibility = View.VISIBLE
+//                        binding.statusImage.setImageResource(R.drawable.ic_connection_error)
+//                    }
+//                    DataFetchStatus.DONE -> {
+//                        binding.statusImage.visibility = View.GONE
+//                    }
+//                }
+//            }
+//        }
 
 
         return binding.root
     }
+
+
 }

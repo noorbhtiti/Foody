@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ltu.foody.model.Ingredients
 import com.ltu.foody.model.Instructions
+import com.ltu.foody.model.InstructionsSteps
 import com.ltu.foody.model.Recipes
 import com.ltu.foody.network.DataFetchStatus
 import com.ltu.foody.network.MealDetailsResponse
@@ -43,6 +44,13 @@ class MealDetailViewModel(
             return _instructions
         }
 
+    private val _instructionsSteps = MutableLiveData<List<InstructionsSteps>>()
+    val instructionsSteps: LiveData<List<InstructionsSteps>>
+        get() {
+            return _instructionsSteps
+        }
+
+
     private val _mealDetails = MutableLiveData<MealDetailsResponse?>()
     val mealDetails: LiveData<MealDetailsResponse?>
         get() {
@@ -62,6 +70,7 @@ class MealDetailViewModel(
                 _mealDetails.value = mealDetailsResponse
                 _ingredients.value = mealDetailsResponse.extendedIngredients
                 _instructions.value = mealDetailsResponse.analyzedInstructions
+                _instructionsSteps.value = mealDetailsResponse.analyzedInstructions[0].steps
                 _dataFetchStatus.value = DataFetchStatus.DONE
             }catch (e:Exception){
                 _dataFetchStatus.value = DataFetchStatus.ERROR
