@@ -5,13 +5,17 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.ltu.foody.database.RecipeDatabaseDao
 import com.ltu.foody.model.Recipes
 import com.ltu.foody.network.DataFetchStatus
 import com.ltu.foody.network.RandomMealResponse
 import com.ltu.foody.network.SpoonacularApi
 import kotlinx.coroutines.launch
 
-class MealListViewModel(application: Application) :
+class MealListViewModel(
+    private val recipeDatabaseDao: RecipeDatabaseDao,
+    application: Application
+) :
     AndroidViewModel(application) {
 
 
@@ -50,6 +54,12 @@ class MealListViewModel(application: Application) :
                  _dataFetchStatus.value = DataFetchStatus.ERROR
                  _recipes.value = arrayListOf()
              }
+        }
+    }
+
+    fun getSavedRecipes(){
+        viewModelScope.launch {
+            _recipes.postValue(recipeDatabaseDao.getAllRecipes())
         }
     }
 

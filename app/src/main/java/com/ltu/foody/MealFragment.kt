@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,8 @@ import com.ltu.foody.viewmodel.MealListViewModel
 import com.ltu.foody.viewmodel.MealListViewModelFactory
 import androidx.navigation.fragment.navArgs
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import com.ltu.foody.database.RecipeDatabase
+import com.ltu.foody.database.RecipeDatabaseDao
 import com.ltu.foody.network.DataFetchStatus
 
 
@@ -25,6 +28,7 @@ class MealFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: MealListViewModel
     private lateinit var viewModelFactory: MealListViewModelFactory
+    private lateinit var recipeDatabaseDao: RecipeDatabaseDao
     private val args: MealFragmentArgs by navArgs()
 
 
@@ -37,7 +41,8 @@ class MealFragment : Fragment() {
 
         _binding = FragmentMealBinding.inflate(inflater, container, false)
         val application = requireNotNull(this.activity).application
-        viewModelFactory = MealListViewModelFactory(application)
+        recipeDatabaseDao = RecipeDatabase.getDatabase(application).recipeDatabaseDao()
+        viewModelFactory = MealListViewModelFactory(recipeDatabaseDao,application)
         viewModel = ViewModelProvider(this, viewModelFactory)[MealListViewModel::class.java]
         val mealListAdapter = MealListAdapter(MealListClickListener { meal ->
             viewModel.onMealListItemClicked(meal)
@@ -90,13 +95,27 @@ class MealFragment : Fragment() {
                 }
             }
         }
-
+        setHasOptionsMenu(true)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        /**
+         *  Handle action bar item clicks here. The action bar will
+         *  automatically handle clicks on the Home/Up button, so long
+         *  as you specify a parent activity in AndroidManifest.xml.
+         */
+
+        when (item.itemId) {
+            R.id.action_saved_recipes -> {
+                viewModel.getSavedRecipes()
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+        return true
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

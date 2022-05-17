@@ -1,10 +1,12 @@
 package com.ltu.foody.viewmodel
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.ltu.foody.database.RecipeDatabaseDao
 import com.ltu.foody.model.Ingredients
 import com.ltu.foody.model.Instructions
 import com.ltu.foody.model.InstructionsSteps
@@ -18,8 +20,10 @@ import kotlinx.coroutines.launch
 
 
 class MealDetailViewModel(
+    private val recipeDatabaseDao: RecipeDatabaseDao,
     application: Application,
-    recipes: Recipes) :
+    recipes: Recipes
+) :
     AndroidViewModel(application) {
 
 
@@ -29,7 +33,11 @@ class MealDetailViewModel(
             return _dataFetchStatus
         }
 
-
+    private val _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean>
+        get() {
+            return _isFavorite
+        }
 
 
     private val _ingredients = MutableLiveData<List<Ingredients>>()
@@ -38,11 +46,6 @@ class MealDetailViewModel(
             return _ingredients
         }
 
-    private val _instructions = MutableLiveData<List<Instructions>>()
-    val instructions: LiveData<List<Instructions>>
-        get() {
-            return _instructions
-        }
 
     private val _instructionsSteps = MutableLiveData<List<InstructionsSteps>>()
     val instructionsSteps: LiveData<List<InstructionsSteps>>
@@ -57,11 +60,35 @@ class MealDetailViewModel(
             return _mealDetails
         }
 
-
     init {
         getMealDetails(recipes.id.toString())
+        setIsFavorite(recipes)
         _dataFetchStatus.value = DataFetchStatus.LOADING
     }
+
+    private fun setIsFavorite(recipes: Recipes) {
+        viewModelScope.launch {
+            _isFavorite.value = recipeDatabaseDao.isFavorite(recipes.id)
+        }
+    }
+
+    fun onAddToDBButtonClicked(recipes: Recipes) {
+        viewModelScope.launch {
+            recipeDatabaseDao.insert(recipes)
+            setIsFavorite(recipes)
+            Toast.makeText(getApplication(),"Added to favorite", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun onRemoveFromDBButtonClicked(recipes: Recipes) {
+        viewModelScope.launch {
+            recipeDatabaseDao.delete(recipes)
+            setIsFavorite(recipes)
+            Toast.makeText(getApplication(),"Removed from favorite", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
 
     fun getMealDetails(mealID:String){
         viewModelScope.launch {
@@ -69,14 +96,13 @@ class MealDetailViewModel(
                 val mealDetailsResponse: MealDetailsResponse = SpoonacularApi.foodListRetrofitService.getMealDetails(mealID)
                 _mealDetails.value = mealDetailsResponse
                 _ingredients.value = mealDetailsResponse.extendedIngredients
-                _instructions.value = mealDetailsResponse.analyzedInstructions
                 _instructionsSteps.value = mealDetailsResponse.analyzedInstructions[0].steps
                 _dataFetchStatus.value = DataFetchStatus.DONE
             }catch (e:Exception){
                 _dataFetchStatus.value = DataFetchStatus.ERROR
                 _mealDetails.value = null
                 _ingredients.value = listOf()
-                _instructions.value = listOf()
+                _instructionsSteps.value = listOf()
             }
         }
     }

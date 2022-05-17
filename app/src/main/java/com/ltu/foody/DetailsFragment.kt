@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.ltu.foody.adapter.IngredientsListAdapter
 import com.ltu.foody.adapter.InstructionsListAdapter
+import com.ltu.foody.database.RecipeDatabase
+import com.ltu.foody.database.RecipeDatabaseDao
 import com.ltu.foody.databinding.FragmentDetailsBinding
 import com.ltu.foody.model.InstructionsSteps
 import com.ltu.foody.model.Recipes
@@ -24,6 +27,7 @@ class DetailsFragment : Fragment() {
     private lateinit var viewModel: MealDetailViewModel
     private lateinit var viewModelFactory: MealDetailViewModelFactory
     private lateinit var recipes: Recipes
+    private lateinit var recipeDatabaseDao: RecipeDatabaseDao
     private val args: DetailsFragmentArgs by navArgs()
 
 
@@ -38,7 +42,8 @@ class DetailsFragment : Fragment() {
         _binding = FragmentDetailsBinding.inflate(inflater,container,false)
         val application = requireNotNull(this.activity).application
         recipes = DetailsFragmentArgs.fromBundle(requireArguments()).recipe
-        viewModelFactory = MealDetailViewModelFactory(application,recipes)
+        recipeDatabaseDao = RecipeDatabase.getDatabase(application).recipeDatabaseDao()
+        viewModelFactory = MealDetailViewModelFactory(recipeDatabaseDao,application,recipes)
         viewModel = ViewModelProvider(this, viewModelFactory)[MealDetailViewModel::class.java]
         binding.recipes = recipes
 
@@ -82,26 +87,54 @@ class DetailsFragment : Fragment() {
         }
 
 
-//        viewModel.dataFetchStatus.observe(viewLifecycleOwner){status ->
-//            status?.let {
-//                when(status){
-//                    DataFetchStatus.LOADING -> {
-//                        binding.statusImage.visibility = View.VISIBLE
-//                        binding.statusImage.setImageResource(R.drawable.loading_animation)
-//                    }
-//                    DataFetchStatus.ERROR -> {
-//                        binding.statusImage.visibility = View.VISIBLE
-//                        binding.statusImage.setImageResource(R.drawable.ic_connection_error)
-//                    }
-//                    DataFetchStatus.DONE -> {
-//                        binding.statusImage.visibility = View.GONE
-//                    }
-//                }
-//            }
-//        }
+        viewModel.dataFetchStatus.observe(viewLifecycleOwner){status ->
+            status?.let {
+                when(status){
+                    DataFetchStatus.LOADING -> {
+                        binding.statusImage.visibility = View.VISIBLE
+                        binding.statusImage.setImageResource(R.drawable.loading_animation)
+                    }
+                    DataFetchStatus.ERROR -> {
+                        binding.statusImage.visibility = View.VISIBLE
+                        binding.statusImage.setImageResource(R.drawable.ic_connection_error)
+                    }
+                    DataFetchStatus.DONE -> {
+                        binding.statusImage.visibility = View.GONE
+                    }
+                }
+            }
+        }
 
+        viewModel.isFavorite.observe(viewLifecycleOwner){   isFavorite ->
+            isFavorite?.let {
+                when(isFavorite){
+                    true ->{
+                        binding.saveToDBButtonView.visibility = View.GONE
+                        binding.removeFromDBButtonView.visibility = View.VISIBLE
+                    }
+                    false -> {
+                        binding.saveToDBButtonView.visibility = View.VISIBLE
+                        binding.removeFromDBButtonView.visibility = View.GONE
+                    }
+                }
+            }
 
+        }
+
+        binding.saveToDBButtonView.setOnClickListener {
+            viewModel.onAddToDBButtonClicked(recipes)
+        }
+        binding.removeFromDBButtonView.setOnClickListener {
+            viewModel.onRemoveFromDBButtonClicked(recipes)
+        }
         return binding.root
+    }
+
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 

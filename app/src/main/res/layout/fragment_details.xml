@@ -6,22 +6,38 @@
 
     <data>
         <variable
-            name="recipes"
-            type="com.ltu.foody.model.Recipes" />
-        <variable
             name="mealDetails"
             type="com.ltu.foody.network.MealDetailsResponse" />
 
         <variable
-            name="instructionsteps"
-            type="com.ltu.foody.model.InstructionsSteps" />
+            name="recipes"
+            type="com.ltu.foody.model.Recipes" />
+
+        <variable
+            name="viewModel"
+            type="com.ltu.foody.viewmodel.MealDetailViewModel" />
     </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/meal_details_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".ThirdFragment">
+
+        <ImageView
+            android:id="@+id/status_image"
+            android:layout_width="319dp"
+            android:layout_height="279dp"
+            android:contentDescription="@string/meals_are_being_loaded"
+            app:layout_constraintBottom_toBottomOf="@+id/textView5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
 
 
         <ImageView
@@ -81,7 +97,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:text="@{mealDetails.title}"
-            android:textSize="18sp"
+            android:textSize="@dimen/title_text_size"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
@@ -105,9 +121,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:text="Ingredients"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="18sp"
+            android:textSize="@dimen/title_text_size"
             app:layout_constraintTop_toBottomOf="@+id/url" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -127,9 +144,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:text="Instructions"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="18sp"
+            android:textSize="@dimen/title_text_size"
             app:layout_constraintTop_toBottomOf="@+id/Ingredients_list_rv" />
 
         <androidx.recyclerview.widget.RecyclerView

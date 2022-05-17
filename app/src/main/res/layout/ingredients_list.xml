@@ -19,14 +19,26 @@
         android:layout_height="wrap_content">
 
 
-        <TextView
+<!--                <TextView-->
+<!--                    android:id="@+id/ingredient"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="8dp"-->
+<!--                    android:text="@{ingredients.original}"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    android:textSize="@dimen/checkBox_text_size"/>-->
+
+
+
+        <CheckBox
             android:id="@+id/ingredient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@{ingredients.original}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{ingredients.original}"
+            android:textSize="@dimen/checkBox_text_size"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

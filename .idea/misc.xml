@@ -3,16 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Nour/AndroidStudioProjects/Foody/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.2295" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/Foody/app/src/main/res/drawable/ic_connection_error.xml" value="0.231" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/Foody/app/src/main/res/layout/activity_main.xml" value="0.11302083333333333" />
-        <entry key="..\:/Users/Nour/AndroidStudioProjects/Foody/app/src/main/res/layout/fragment_details.xml" value="0.18947368421052632" />
+        <entry key="..\:/Users/Nour/AndroidStudioProjects/Foody/app/src/main/res/layout/fragment_details.xml" value="0.1" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/Foody/app/src/main/res/layout/fragment_first.xml" value="0.1" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/Foody/app/src/main/res/layout/fragment_meal.xml" value="0.14947916666666666" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/Foody/app/src/main/res/layout/fragment_second.xml" value="0.1" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/Foody/app/src/main/res/layout/fragment_third.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/Foody/app/src/main/res/layout/fragment_video_view.xml" value="0.22992700729927007" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/Foody/app/src/main/res/layout/ingredients_list.xml" value="0.25052083333333336" />
-        <entry key="..\:/Users/Nour/AndroidStudioProjects/Foody/app/src/main/res/layout/instructions_list.xml" value="0.4" />
+        <entry key="..\:/Users/Nour/AndroidStudioProjects/Foody/app/src/main/res/layout/instructions_list.xml" value="0.1" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/Foody/app/src/main/res/layout/meals_list.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/Foody/app/src/main/res/menu/menu_main.xml" value="0.11302083333333333" />
       </map>
