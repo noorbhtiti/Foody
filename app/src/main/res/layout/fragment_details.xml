@@ -161,7 +161,41 @@
             app:layout_constraintTop_toBottomOf="@+id/Instructions" />
 
 
+
+        <ImageButton
+            android:id="@+id/saveToDBButtonView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/ic_baseline_favorite_border_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Instructions_list_rv"
+            android:background="@null"
+
+            />
+
+        <ImageButton
+            android:id="@+id/removeFromDBButtonView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/ic_baseline_favorite_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Instructions_list_rv"
+            android:background="@null" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/removeFromDBButtonView" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+    </androidx.core.widget.NestedScrollView>
 </layout>
