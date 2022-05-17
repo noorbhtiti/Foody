@@ -49,7 +49,6 @@ private val foodListRetrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .baseUrl(Constants.API_BASE_URL)
     .build()
-//// https://api.spoonacular.com/recipes/random?apiKey=11f559488f3748dc8655d5fa2eec3b62&number=20&tags=drink TODO
 
 interface SpoonacularApiService{
 
@@ -59,8 +58,6 @@ interface SpoonacularApiService{
         @Query("tags")
         tag : String
     ): RandomMealResponse
-
-//    https://api.spoonacular.com/recipes/661557/information?apiKey=185fb6e631d04ec9a95d63d833a22ce6 TODO REMOVE
 
     @GET("{id}/information?apiKey=${Constants.API_KEY}")
     suspend fun getMealDetails(

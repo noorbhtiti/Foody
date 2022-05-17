@@ -93,13 +93,24 @@ class DetailsFragment : Fragment() {
                     DataFetchStatus.LOADING -> {
                         binding.statusImage.visibility = View.VISIBLE
                         binding.statusImage.setImageResource(R.drawable.loading_animation)
+                        binding.bigImage.visibility = View.GONE
+                        binding.Ingredients.visibility = View.GONE
+                        binding.Instructions.visibility = View.GONE
                     }
                     DataFetchStatus.ERROR -> {
                         binding.statusImage.visibility = View.VISIBLE
                         binding.statusImage.setImageResource(R.drawable.ic_connection_error)
+                        binding.bigImage.visibility = View.GONE
+                        binding.Ingredients.visibility = View.GONE
+                        binding.Instructions.visibility = View.GONE
+                        binding.saveToDBButtonView.visibility = View.GONE
+                        binding.removeFromDBButtonView.visibility = View.GONE
                     }
                     DataFetchStatus.DONE -> {
                         binding.statusImage.visibility = View.GONE
+                        binding.bigImage.visibility = View.VISIBLE
+                        binding.Ingredients.visibility = View.VISIBLE
+                        binding.Instructions.visibility = View.VISIBLE
                     }
                 }
             }
