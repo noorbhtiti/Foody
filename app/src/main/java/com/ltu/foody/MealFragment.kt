@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ltu.foody.adapter.MealListAdapter
@@ -20,6 +21,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.ltu.foody.database.RecipeDatabase
 import com.ltu.foody.database.RecipeDatabaseDao
 import com.ltu.foody.network.DataFetchStatus
+import timber.log.Timber
 
 
 class MealFragment : Fragment() {
@@ -111,6 +113,12 @@ class MealFragment : Fragment() {
             R.id.action_saved_recipes -> {
                 viewModel.getSavedRecipes()
             }
+            android.R.id.home -> {
+                this.findNavController().navigate(
+                    MealFragmentDirections.actionSecondFragmentToFirstFragment()
+                )
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
         return true
