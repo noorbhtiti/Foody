@@ -53,7 +53,7 @@ private val foodListRetrofit = Retrofit.Builder()
 interface SpoonacularApiService{
 
 
-    @GET("random?apiKey=${Constants.API_KEY}&number=1&") //TODO set the number to 20
+    @GET("random?apiKey=${Constants.API_KEY}&number=20&") //TODO set the number to 20
     suspend fun getRandomMeals(
         @Query("tags")
         tag : String
