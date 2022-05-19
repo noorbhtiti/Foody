@@ -12,6 +12,7 @@ import com.ltu.foody.network.RandomMealResponse
 import com.ltu.foody.network.SpoonacularApi
 import kotlinx.coroutines.launch
 
+//TODO: Repository
 class MealListViewModel(
     private val recipeDatabaseDao: RecipeDatabaseDao,
     application: Application

@@ -18,7 +18,7 @@ import com.ltu.foody.network.SpoonacularApi
 import com.squareup.moshi.Json
 import kotlinx.coroutines.launch
 
-
+//TODO: Repository
 class MealDetailViewModel(
     private val recipeDatabaseDao: RecipeDatabaseDao,
     application: Application,

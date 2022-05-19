@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
 
+//TODO: ADD Instruction and Ingredients to be saved corresponding to
 @Parcelize
 @Entity(tableName = "recipes")
 data class Recipes(
