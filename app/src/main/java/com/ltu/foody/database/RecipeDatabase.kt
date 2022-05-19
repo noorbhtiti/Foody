@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.ltu.foody.model.Recipes
 
 
-@Database(entities = [Recipes::class], version = 1, exportSchema = false)
+@Database(entities = [Recipes::class], version = 2, exportSchema = false)
 abstract class RecipeDatabase : RoomDatabase(){
 
     abstract fun recipeDatabaseDao(): RecipeDatabaseDao
@@ -26,7 +26,7 @@ abstract class RecipeDatabase : RoomDatabase(){
                     context.applicationContext,
                     RecipeDatabase::class.java,
                     "recipe_database"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 // return instance
                 instance

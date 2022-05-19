@@ -16,4 +16,5 @@
     <string name="todo">TODO</string>
     <string name="ingredients">Ingredients</string>
     <string name="saved_recipes">Saved recipes</string>
+    <string name="delete_recipes">delete all Saved</string>
 </resources>

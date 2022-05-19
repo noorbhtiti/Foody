@@ -62,6 +62,11 @@ class MealListViewModel(
             _recipes.postValue(recipeDatabaseDao.getAllRecipes())
         }
     }
+    fun deleteAllRecipes(){
+        viewModelScope.launch {
+            recipeDatabaseDao.deleteAll()
+        }
+    }
 
     fun onMealListItemClicked(recipes: Recipes){
         _navigateToRecipesDetail.value = recipes

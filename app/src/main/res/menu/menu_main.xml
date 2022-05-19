@@ -5,6 +5,9 @@
     <item
         android:id="@+id/action_saved_recipes"
         android:title="@string/saved_recipes" />
+    <item
+        android:id="@+id/action_delete_recipes"
+        android:title="@string/delete_recipes" />
 </menu>
 
 

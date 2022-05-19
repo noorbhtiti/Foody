@@ -113,6 +113,9 @@ class MealFragment : Fragment() {
             R.id.action_saved_recipes -> {
                 viewModel.getSavedRecipes()
             }
+            R.id.action_delete_recipes -> {
+                viewModel.deleteAllRecipes()
+            }
             android.R.id.home -> {
                 this.findNavController().navigate(
                     MealFragmentDirections.actionSecondFragmentToFirstFragment()

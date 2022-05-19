@@ -17,6 +17,8 @@ interface RecipeDatabaseDao {
     @Delete
     suspend fun delete(recipes: Recipes)
 
+    @Query("delete from recipes")
+    suspend fun deleteAll()
 
     @Query("SELECT * from recipes ORDER BY id ASC")
     suspend fun getAllRecipes():List<Recipes>
